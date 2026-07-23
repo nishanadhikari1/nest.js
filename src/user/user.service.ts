@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 interface User {
-  id: string;
+  id: number;
   name: string;
   email: string;
 }
@@ -13,8 +13,8 @@ interface User {
 export class UserService {
   constructor(private logger: LoggerService) {}
   private users: User[] = [
-    { id: '1', name: 'Nishan Adhikari', email: 'xyz@gmail.com' },
-    { id: '2', name: 'Nishan Adhikari', email: 'xyz@gmail.com' },
+    { id: 1, name: 'Nishan Adhikari', email: 'xyz@gmail.com' },
+    { id: 2, name: 'Nishan Adhikari', email: 'xyz@gmail.com' },
   ];
 
   findAllUsers(name: string = '') {
@@ -23,7 +23,7 @@ export class UserService {
       user.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()),
     );
   }
-  findUserByid(id: string) {
+  findUserByid(id: number) {
     const user = this.users.find((user) => user.id === id);
     if(!user){
         throw new NotFoundException('User not found')
@@ -34,7 +34,7 @@ export class UserService {
     this.users = [dto, ...this.users];
     return this.users;
   }
-  updateUser(id: string, dto: UpdateUserDto) {
+  updateUser(id: number, dto: UpdateUserDto) {
     this.users = this.users.map((user) => {
       if (user.id === id) {
         return {
@@ -48,7 +48,7 @@ export class UserService {
 
     return this.users.find((user) => user.id === id);
   }
-  deleteUser(id: string) {
+  deleteUser(id: number) {
     this.users = this.users.filter((user) => user.id !== id);
 
     return {
